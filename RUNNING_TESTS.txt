@@ -1,0 +1,41 @@
+How to build and run the tests
+
+1) Build the tests executable (recommended)
+
+PowerShell / Command Prompt:
+```
+mingw32-make tests.exe
+```
+
+This runs the Makefile target that compiles `tests.cpp` into `tests.exe`.
+
+You can also build both program and tests:
+```
+mingw32-make program.exe
+mingw32-make tests.exe
+```
+
+From VS Code: open the Command Palette → "Tasks: Run Task" → select "make tests.exe".
+
+2) Run the tests
+
+In the project directory:
+```
+.\tests.exe
+```
+
+The tests use doctest and will print a summary like:
+[doctest] test cases: N | N passed | 0 failed
+[doctest] assertions: M | M passed | 0 failed
+[doctest] Status: SUCCESS!
+
+3) Debugging the tests
+
+Create or edit `.vscode/launch.json` to point the program path to the workspace `tests.exe` and run the C++ (gdb) debugger. Example `program` value: `${workspaceFolder}\\tests.exe`.
+
+4) Troubleshooting
+- Ensure MSYS2/MinGW (g++) is installed and on `PATH`.
+- Check compiler output when running `mingw32-make tests.exe` for missing headers or flags.
+- If tests hang or crash, run under the debugger to get a stack trace.
+
+If you want, I can also add a short `README.md` or integrate the test run into CI or a VS Code test task.

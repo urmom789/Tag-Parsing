@@ -52,9 +52,37 @@ int getImageWidth(string tag)
   return stoi(num);
 }
 
-// int getImageHeight(string tag)
+int getImageHeight(string tag)
+{
+  size_t start = tag.find("height=\"");
+  start += 8;
 
-// int getVerticalPadding(string tag)
+  size_t end = tag.find("px", start);
+  string num = tag.substr(start, end - start);
+  return stoi(num);
+}
+
+int getVerticalPadding(string tag)
+{
+  size_t start = tag.find("padding=\"");
+  if (start == string::npos) {
+    return 0;
+  }
+  start += 9;
+
+  size_t end = tag.find("px", start);
+  size_t padding = tag.find("\"", start);
+  string padding = tag.substr(start, end - start);
+
+  size_t spacePos = padding.find(" ");
+  if (spacePos == string::npos) {
+    size_t pxPos = padding.find("px");
+    return stoi(padding.substr(0, pxPos));
+  } else {
+    size_t pxPos = padding.find("px");
+    return stoi(padding.substr(0, pxPos));
+  }
+}
 
 // int getHorizontalPadding(string tag)
 

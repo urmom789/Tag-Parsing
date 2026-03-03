@@ -107,4 +107,20 @@ int main()
 
   cout << "Tag:" << tag << endl;
   // Add your code here to print out information about the tag
+  string filename = getImageSource(tag);
+  string readable = underscoresToSpaces(filename);
+  int width = getImageWidth(tag);
+  int height = getImageHeight(tag);
+  int vPad = getVerticalPadding(tag);
+  int hPad = getHorizontalPadding(tag);
+
+  int finalWidth = width + 2 * hPad;
+  int finalHeight = height + 2 * vPad;
+
+  cout << filename << " (" << readable << ")" << endl;
+  cout << "Width: " << width << endl;
+  cout << "Height: " << height << endl;
+  cout << "Vertical padding: " << vPad << endl;
+  cout << "Horizontal padding: " << hPad << endl;
+  cout << "Final dimensions: " << finalWidth << "x" << finalHeight << endl;
 }

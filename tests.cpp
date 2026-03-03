@@ -71,7 +71,6 @@ int getVerticalPadding(string tag)
   start += 9;
 
   size_t end = tag.find("\"", start);
-  size_t padding = tag.find("\"", start);
   string padding = tag.substr(start, end - start);
 
   size_t spacePos = padding.find(" ");
@@ -84,7 +83,26 @@ int getVerticalPadding(string tag)
   }
 }
 
-// int getHorizontalPadding(string tag)
+int getHorizontalPadding(string tag)
+{
+  size_t start = tag.find("padding=\"");
+  if (start == string::npos) {
+    return 0;
+  }
+  start += 9;
+
+  size_t end = tag.find("\"", start);
+  string padding = tag.substr(start, end - start);
+
+  size_t spacePos = padding.find(" ");
+  if (spacePos == string::npos) {
+    size_t pxPos = padding.find("px");
+    return stoi(padding.substr(0, pxPos));
+  } else {
+    size_t pxPos = padding.find("px", spacePos);
+    return stoi(padding.substr(spacePos + 1, pxPos - (spacePos + 1)));
+  }
+}
 
 //-----------------------------------------------------------------------------------
 // Testing code
@@ -98,51 +116,51 @@ const string EXAMPLE_3 = "<image width=\"400px\" height=\"250px\" padding=\"10px
 // clang-format on
 // "// clang-format on" turns auto-formatting back on
 
-// TEST_CASE("Testing getImageSource")
-// {
-//   cout << "1: getImageSource" << endl;
-//   CHECK(getImageSource(EXAMPLE_1) == "puppy.jpg");
-//   CHECK(getImageSource(EXAMPLE_2) == "cat_pounce.gif");
-//   CHECK(getImageSource(EXAMPLE_3) == "little_red_snake.mpeg");
-// }
+TEST_CASE("Testing getImageSource")
+{
+  cout << "1: getImageSource" << endl;
+  CHECK(getImageSource(EXAMPLE_1) == "puppy.jpg");
+  CHECK(getImageSource(EXAMPLE_2) == "cat_pounce.gif");
+  CHECK(getImageSource(EXAMPLE_3) == "little_red_snake.mpeg");
+}
 
-// TEST_CASE("Testing underscoresToSpaces")
-// {
-//   cout << "2: underscoresToSpaces" << endl;
-//   CHECK(underscoresToSpaces("puppy.jpg") == "puppy.jpg");
-//   CHECK(underscoresToSpaces("cat_pounce.gif") == "cat pounce.gif");
-//   CHECK(underscoresToSpaces("little_red_snake.mpeg")
-//         == "little red snake.mpeg");
-// }
+TEST_CASE("Testing underscoresToSpaces")
+{
+  cout << "2: underscoresToSpaces" << endl;
+  CHECK(underscoresToSpaces("puppy.jpg") == "puppy.jpg");
+  CHECK(underscoresToSpaces("cat_pounce.gif") == "cat pounce.gif");
+  CHECK(underscoresToSpaces("little_red_snake.mpeg")
+        == "little red snake.mpeg");
+}
 
-// TEST_CASE("Testing getImageWidth")
-// {
-//   cout << "3: getImageWidth" << endl;
-//   CHECK(getImageWidth(EXAMPLE_1) == 100);
-//   CHECK(getImageWidth(EXAMPLE_2) == 300);
-//   CHECK(getImageWidth(EXAMPLE_3) == 400);
-// }
+TEST_CASE("Testing getImageWidth")
+{
+  cout << "3: getImageWidth" << endl;
+  CHECK(getImageWidth(EXAMPLE_1) == 100);
+  CHECK(getImageWidth(EXAMPLE_2) == 300);
+  CHECK(getImageWidth(EXAMPLE_3) == 400);
+}
 
-// TEST_CASE("Testing getImageHeight")
-// {
-//   cout << "4: getImageHeight" << endl;
-//   CHECK(getImageHeight(EXAMPLE_1) == 200);
-//   CHECK(getImageHeight(EXAMPLE_2) == 400);
-//   CHECK(getImageHeight(EXAMPLE_3) == 250);
-// }
+TEST_CASE("Testing getImageHeight")
+{
+  cout << "4: getImageHeight" << endl;
+  CHECK(getImageHeight(EXAMPLE_1) == 200);
+  CHECK(getImageHeight(EXAMPLE_2) == 400);
+  CHECK(getImageHeight(EXAMPLE_3) == 250);
+}
 
-// TEST_CASE("Testing getVerticalPadding")
-// {
-//   cout << "5: getVerticalPadding" << endl;
-//   CHECK(getVerticalPadding(EXAMPLE_1) == 0);
-//   CHECK(getVerticalPadding(EXAMPLE_2) == 10);
-//   CHECK(getVerticalPadding(EXAMPLE_3) == 10);
-// }
+TEST_CASE("Testing getVerticalPadding")
+{
+  cout << "5: getVerticalPadding" << endl;
+  CHECK(getVerticalPadding(EXAMPLE_1) == 0);
+  CHECK(getVerticalPadding(EXAMPLE_2) == 10);
+  CHECK(getVerticalPadding(EXAMPLE_3) == 10);
+}
 
-// TEST_CASE("Testing getHorizontalPadding")
-// {
-//   cout << "6: getHorizontalPadding" << endl;
-//   CHECK(getHorizontalPadding(EXAMPLE_1) == 0);
-//   CHECK(getHorizontalPadding(EXAMPLE_2) == 10);
-//   CHECK(getHorizontalPadding(EXAMPLE_3) == 5);
-// }
+TEST_CASE("Testing getHorizontalPadding")
+{
+  cout << "6: getHorizontalPadding" << endl;
+  CHECK(getHorizontalPadding(EXAMPLE_1) == 0);
+  CHECK(getHorizontalPadding(EXAMPLE_2) == 10);
+  CHECK(getHorizontalPadding(EXAMPLE_3) == 5);
+}

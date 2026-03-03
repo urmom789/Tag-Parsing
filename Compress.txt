@@ -1,0 +1,1 @@
+Compress-Archive -Path .\.git, .\* -DestinationPath project.zip -Force

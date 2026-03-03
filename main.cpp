@@ -117,7 +117,7 @@ int main()
   int finalWidth = width + 2 * hPad;
   int finalHeight = height + 2 * vPad;
 
-  cout << "Filename: " << filename << " (" << readable << ")" << endl;
+  cout << "\nFilename: " << filename << " (" << readable << ")" << endl;
   cout << "Width: " << width << endl;
   cout << "Height: " << height << endl;
   cout << "Vertical padding: " << vPad << endl;
